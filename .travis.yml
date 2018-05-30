@@ -3,3 +3,6 @@ before_install:
   # Disable custom repo list from Travis-CI, so that we always use repos
   # defined in the project POM instead of Maven Central.
   - rm ~/.m2/settings.xml
+cache:
+  directories:
+    - $HOME/.m2

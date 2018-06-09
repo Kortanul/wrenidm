@@ -9,15 +9,10 @@ cache:
     - .m2/repository/
     - target/
 
-build:
-  stage: build
-  script:
-    - mvn $MAVEN_CLI_OPTS package -DskipTests
-
 test:
   stage: test
   script:
-    - mvn $MAVEN_CLI_OPTS test
+    - mvn $MAVEN_CLI_OPTS clean verify
 
 deploy:
   stage: deploy

@@ -11,7 +11,7 @@ cache:
 test:
   stage: test
   script:
-    - mvn $MAVEN_CLI_OPTS clean verify
+    - mvn $MAVEN_CLI_OPTS clean verify -U
 
 deploy:
   stage: deploy

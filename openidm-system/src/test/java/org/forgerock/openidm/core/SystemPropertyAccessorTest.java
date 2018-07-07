@@ -2,6 +2,7 @@
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
  * Copyright (c) 2012-2013 ForgeRock AS. All Rights Reserved
+ * Portions Copyright 2018 Wren Security.
  *
  * The contents of this file are subject to the terms
  * of the Common Development and Distribution License
@@ -48,7 +49,7 @@ public class SystemPropertyAccessorTest {
         assertThat(testable.getProperty("pirospaprika", "voroshagyma", null)).isEqualTo("voroshagyma");
         assertThat(testable.getProperty("pirospaprika", "voroshagyma", Object.class)).isEqualTo("voroshagyma");
         verifyZeroInteractions(delegate);
-        assertThat(testable.getProperty(null, null, null)).isNull();
+        assertThat((Object)testable.getProperty(null, null, null)).isNull();
         verify(delegate, times(1)).getProperty(null, null, null);
         assertThat(testable.getProperty("testable", 1, null)).isNull();
         verify(delegate, times(1)).getProperty("testable", 1, null);

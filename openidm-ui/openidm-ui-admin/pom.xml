@@ -110,7 +110,7 @@
         <dependency>
             <groupId>org.forgerock.commons.ui.libs</groupId>
             <artifactId>jquery-cron</artifactId>
-            <version>f831f2</version>
+            <version>r2427</version>
             <type>js</type>
         </dependency>
 

@@ -12,7 +12,9 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015-2017 ForgeRock AS.
+ * Portions Copyright 2018 Wren Security.
  */
+
 package org.forgerock.openidm.selfservice.impl;
 
 import static org.forgerock.http.handler.HttpClientHandler.OPTION_LOADER;
@@ -111,10 +113,7 @@ public class SelfService implements IdentityProviderListener {
     private static final String ALL_IN_ONE_REGISTRATION = "allInOneRegistration";
 
     /** the shared key alias */
-    public static final String SHARED_KEY_ALIAS =
-            IdentityServer.getInstance().getProperty(
-                    SELF_SERVICE_SHARED_KEY_PROPERTY,
-                    SELF_SERVICE_DEFAULT_SHARED_KEY_ALIAS);
+    private static volatile String sharedKeyAlias;
 
     // ----- Declarative Service Implementation
 
@@ -176,6 +175,31 @@ public class SelfService implements IdentityProviderListener {
                     return kbaConfiguration;
                 }
             });
+
+    /**
+     * Get the alias of the key self-service uses for pre-shared key encryption.
+     *
+     * <p>The alias is read from the identity server configuration only once, and then cached
+     * statically.
+     *
+     * @return
+     *   The key alias.
+     */
+    public static String getSharedKeyAlias() {
+        if (sharedKeyAlias == null) {
+            synchronized (SelfService.class) {
+                // Double-checked locking pattern
+                if (sharedKeyAlias == null) {
+                    sharedKeyAlias = IdentityServer.getInstance().getProperty(
+                        SELF_SERVICE_SHARED_KEY_PROPERTY,
+                        SELF_SERVICE_DEFAULT_SHARED_KEY_ALIAS
+                    );
+                }
+            }
+        }
+
+        return sharedKeyAlias;
+    }
 
     @Activate
     void activate(ComponentContext context) throws Exception {
@@ -332,7 +356,7 @@ public class SelfService implements IdentityProviderListener {
 
     private TokenHandler createJwtTokenHandler(final JwtTokenHandlerConfig jwtTokenHandlerConfig) {
         return tokenHandlerService.getJwtTokenHandler(
-                SHARED_KEY_ALIAS,
+                getSharedKeyAlias(),
                 jwtTokenHandlerConfig.getJweAlgorithm(),
                 jwtTokenHandlerConfig.getEncryptionMethod(),
                 SELF_SERVICE_CERT_ALIAS,

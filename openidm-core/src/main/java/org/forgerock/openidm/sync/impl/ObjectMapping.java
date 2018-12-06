@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Portions copyright 2011-2017 ForgeRock AS.
+ * Portions Copyright 2018 Wren Security.
  */
 package org.forgerock.openidm.sync.impl;
 
@@ -430,7 +431,7 @@ class ObjectMapping {
      * @return sync results of the {@link SyncOperation}
      * @throws SynchronizationException if sync-ing fails.
      */
-    private JsonValue doSourceSync(Context context, String resourceId, JsonValue value, boolean sourceDeleted, 
+    private JsonValue doSourceSync(Context context, String resourceId, JsonValue value, boolean sourceDeleted,
             JsonValue oldValue) throws SynchronizationException {
         JsonValue results = json(array());
         LOGGER.trace("Start source synchronization of {} {}", resourceId, (value == null) ? "without a value" : "with a value");
@@ -558,10 +559,10 @@ class ObjectMapping {
 
     /**
      * Perform the reconciliation action on a pre-assessed job.
-     * <p/>
+     * <p>
      * For the input parameters see {@link SourceSyncOperation#toJsonValue()} or
      * {@link TargetSyncOperation#toJsonValue()}.
-     * <p/>
+     * <p>
      * Script example:
      * <pre>
      *     try {
@@ -837,7 +838,7 @@ class ObjectMapping {
                 if (queryNextPage) {
                     LOGGER.debug("Querying next page of source ids");
                     final long pagedSourceQueryStart = startNanoTime(reconContext);
-                    sourceQueryResult = reconContext.querySourceIter(reconSourceQueryPageSize, 
+                    sourceQueryResult = reconContext.querySourceIter(reconSourceQueryPageSize,
                             sourceQueryResult.getPagingCookie());
                     sourceIter = sourceQueryResult.getIterator();
                     stats.addDuration(DurationMetric.sourceQuery, pagedSourceQueryStart);
@@ -1036,7 +1037,7 @@ class ObjectMapping {
 
     /**
      * Record the premature failure of a reconciliation.
-     * 
+     *
      * @param reconContext
      * @param context
      * @throws SynchronizationException
@@ -1072,7 +1073,7 @@ class ObjectMapping {
 
     /**
      * Execute a sync engine action explicitly, without going through situation assessment.
-     * 
+     *
      * @param context {@link Context} associated with the current sync.
      * @param sourceObject the source object if applicable to the action
      * @param targetObject the target object if applicable to the action
@@ -1080,7 +1081,7 @@ class ObjectMapping {
      * @param action the explicit action to invoke
      * @param reconId an optional identifier for the recon context if this is done in the context of reconciliation
      */
-    public void explicitOp(Context context, JsonValue sourceObject, JsonValue targetObject, Situation situation, 
+    public void explicitOp(Context context, JsonValue sourceObject, JsonValue targetObject, Situation situation,
             ReconAction action, String reconId) throws SynchronizationException {
         for (String linkQualifier : getLinkQualifiers(sourceObject, null, false, context, null)) {
             ExplicitSyncOperation linkOp = new ExplicitSyncOperation(this, context);

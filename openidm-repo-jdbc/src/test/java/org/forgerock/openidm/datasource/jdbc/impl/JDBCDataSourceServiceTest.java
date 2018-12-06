@@ -12,7 +12,9 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2016-2017 ForgeRock AS.
+ * Portions Copyright 2018 Wren Security.
  */
+
 package org.forgerock.openidm.datasource.jdbc.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,9 +34,11 @@ import javax.sql.DataSource;
 
 import org.forgerock.json.JsonPointer;
 import org.forgerock.json.JsonValue;
+import org.forgerock.openidm.core.IdentityServerTestUtils;
 import org.forgerock.openidm.datasource.DataSourceService;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.jolbox.bonecp.BoneCPDataSource;
@@ -44,6 +48,10 @@ import com.zaxxer.hikari.HikariDataSource;
  * Test of JDBCDataSourceServiceTest
  */
 public class JDBCDataSourceServiceTest {
+    @BeforeClass
+    public void setup() {
+        IdentityServerTestUtils.initInstanceForTest();
+    }
 
     @Test
     public void testConnectionAttempts() throws Exception {

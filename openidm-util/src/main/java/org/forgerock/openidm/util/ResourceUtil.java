@@ -12,8 +12,8 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2013-2017 ForgeRock AS.
+ * Portions Copyright 2018 Wren Security.
  */
-
 package org.forgerock.openidm.util;
 
 import static org.forgerock.json.resource.ResourceResponse.FIELD_CONTENT_ID;
@@ -42,6 +42,8 @@ import org.forgerock.util.Function;
  * Resource utilities.
  */
 public class ResourceUtil {
+    /** The name of the field in the resource content which contains the resource ID as a JsonPointer. */
+    public static JsonPointer RESOURCE_FIELD_CONTENT_ID_POINTER = new JsonPointer(FIELD_CONTENT_ID);
 
     /**
      * Transformer that Prepares two jsonValues to be compared for equality.
@@ -64,8 +66,6 @@ public class ResourceUtil {
                     return value;
                 }
             };
-    /** The name of the field in the resource content which contains the resource ID as a JsonPointer. */
-    public static JsonPointer RESOURCE_FIELD_CONTENT_ID_POINTER = new JsonPointer(FIELD_CONTENT_ID);
 
     /**
      * {@code ResourceUtil} instances should NOT be constructed in standard
@@ -78,7 +78,7 @@ public class ResourceUtil {
 
     /**
      * Retrieve the {@code UriTemplateVariables} from the context.
-     * <p/>
+     * <p>
      *
      * @param context
      *

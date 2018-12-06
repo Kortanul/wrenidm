@@ -12,8 +12,8 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2017 ForgeRock AS.
+ * Portions Copyright 2018 Wren Security.
  */
-
 package org.forgerock.openidm.external.email.impl;
 
 import static org.forgerock.json.JsonValue.field;
@@ -150,16 +150,23 @@ public class EmailClient {
     /**
      * Send the email according to the parameters in <em>params</em>:
      *
+     * <p>
+     * <pre>
      * from : the From: address
      * to : The To: recipients - a comma separated email address strings
      * cc: The Cc: recipients - a comma separated email address strings
      * bcc: The Bcc: recipients - a comma separated email address strings
      * subject: The subject
      * body : the message body
+     * <pre>
      *
-     * @param params a JsonValue containing the from, to, cc, bcc, subject, and body parameters
-     * @return a response with the result of the synchronous action
-     * @throws ResourceException on failure
+     * @param   params
+     *          A JsonValue containing the {@code from}, {@code to}, {@code cc}, {@code bcc},
+     *          {@code subject}, and {@code body} parameters.
+     *
+     * @throws  ResourceException
+     *          If the one or more of the {@code from}, {@code to}, {@code cc}, {@code bcc},
+     *          {@code subject}, or {@code body} parameters are missing or improperly formatted.
      */
     private ActionResponse send(JsonValue params) throws ResourceException {
         InternetAddress from = null;

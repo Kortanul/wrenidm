@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions Copyright 2018 Wren Security.
  */
 package org.forgerock.openidm.repo.jdbc.impl;
 
@@ -21,15 +22,12 @@ import static org.forgerock.openidm.repo.QueryConstants.SORT_KEYS;
 import static org.forgerock.openidm.repo.util.Clauses.where;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import org.forgerock.json.JsonPointer;
 import org.forgerock.json.JsonValue;
-import org.forgerock.json.resource.NotFoundException;
 import org.forgerock.json.resource.SortKey;
 import org.forgerock.openidm.repo.jdbc.SQLExceptionHandler;
 import org.forgerock.openidm.repo.util.Clause;
@@ -81,9 +79,6 @@ public class DB2TableHandler extends GenericTableHandler {
     }
 
     // blatantly copied from OracleTableHandler...
-    /**
-     * @inheritDoc
-     */
     @Override
     public String renderQueryFilter(QueryFilter<JsonPointer> filter, Map<String, Object> replacementTokens, Map<String, Object> params) {
         final int offsetParam = Integer.parseInt((String)params.get(PAGED_RESULTS_OFFSET));
@@ -144,5 +139,4 @@ public class DB2TableHandler extends GenericTableHandler {
 
         return builder.toSQL();
     }
-    
 }

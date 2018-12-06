@@ -12,22 +12,21 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2017 ForgeRock AS.
+ * Portions Copyright 2018 Wren Security.
  */
 package org.forgerock.openidm.external.email.metadata;
-
-import org.forgerock.json.JsonPointer;
-import org.forgerock.json.JsonValue;
-import org.forgerock.openidm.external.email.impl.EmailServiceImpl;
-import org.forgerock.openidm.external.email.impl.EmailClient;
-import org.forgerock.openidm.metadata.MetaDataProvider;
-import org.forgerock.openidm.metadata.MetaDataProviderCallback;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.forgerock.json.JsonPointer;
+import org.forgerock.json.JsonValue;
+import org.forgerock.openidm.external.email.impl.EmailClient;
+import org.forgerock.openidm.external.email.impl.EmailServiceImpl;
+import org.forgerock.openidm.metadata.MetaDataProvider;
+import org.forgerock.openidm.metadata.MetaDataProviderCallback;
 
 /**
  * Meta data provider to describe configuration
@@ -45,9 +44,6 @@ public class ConfigMeta implements MetaDataProvider {
         propertiesToEncrypt.put(EmailServiceImpl.PID, props);
     }
 
-    /**
-     * @inheritDoc
-     */
     public List<JsonPointer> getPropertiesToEncrypt(String pidOrFactory, String instanceAlias, JsonValue config) {
         if (propertiesToEncrypt.containsKey(pidOrFactory)) {
             return propertiesToEncrypt.get(pidOrFactory);
@@ -55,9 +51,6 @@ public class ConfigMeta implements MetaDataProvider {
         return null;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void setCallback(MetaDataProviderCallback callback) {
         this.callback = callback;
